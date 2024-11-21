@@ -12,7 +12,6 @@ public readonly struct ValueResult : IResult
     [MemberNotNullWhen(true, nameof(Error))]
     public bool IsFailure => Error != default;
 
-    public ValueResult() { }
     public ValueResult(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
@@ -77,7 +76,8 @@ public readonly struct ValueResult<TValue> : IResult<TValue>
         Error = error;
     }
 
-    public ValueResult<TValue> FailIfNull(IError error) => IsSuccess ? this : new(error);
+    public ValueResult<TValue> FailIfNull(IError error)
+        => IsSuccess && Value == null ? new(error) : this;
 
     public bool TryGetValue([NotNullWhen(true)] out TValue? value)
     {

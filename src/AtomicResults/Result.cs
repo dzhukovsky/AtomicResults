@@ -69,7 +69,8 @@ public class Result<TValue> : Result, IResult<TValue>
     {
     }
 
-    public Result<TValue> FailIfNull(IError error) => IsSuccess ? this : new(error);
+    public Result<TValue> FailIfNull(IError error) 
+        => IsSuccess && Value == null ? new(error) : this;
 
     public bool TryGetValue([NotNullWhen(true)] out TValue? value)
     {

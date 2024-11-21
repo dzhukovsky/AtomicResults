@@ -253,4 +253,81 @@ public class ResultTests
         act.Should().Throw<ArgumentNullException>()
            .WithMessage("Value cannot be null. (Parameter 'error')");
     }
+
+    [Fact]
+    public void FailIfNull_ShouldReturnSameResult_WhenValueIsNotNull()
+    {
+        // Arrange
+        var value = "Test Value";
+        var result = Result.Ok(value);
+        var error = new Error("Test Error");
+
+        // Act
+        var newResult = result.FailIfNull(error);
+
+        // Assert
+        newResult.Should().Be(result); 
+        newResult.IsSuccess.Should().BeTrue();
+        newResult.Value.Should().Be(value);
+    }
+
+    [Fact]
+    public void FailIfNull_ShouldReturnFailedResult_WhenValueIsNull()
+    {
+        // Arrange
+        var error = new Error("Test Error");
+        var result = Result.Ok<string?>(null);
+
+        // Act
+        var newResult = result.FailIfNull(error);
+
+        // Assert
+        newResult.Should().NotBe(result);
+        newResult.IsFailure.Should().BeTrue();
+        newResult.Error.Should().Be(error);
+    }
+
+    [Fact]
+    public void FailIfNull_ShouldThrowException_WhenErrorIsNull()
+    {
+        // Arrange
+        var result = Result.Ok<string?>(null);
+
+        // Act
+        var act = () => result.FailIfNull(null!);
+
+        // Assert
+        act.Should().Throw<ArgumentNullException>()
+           .WithMessage("Value cannot be null. (Parameter 'error')");
+    }
+
+    [Fact]
+    public void TryGetValue_ShouldReturnTrueAndSetValue_WhenResultIsSuccessful()
+    {
+        // Arrange
+        var value = "Test Value";
+        var result = Result.Ok(value);
+
+        // Act
+        var success = result.TryGetValue(out var retrievedValue);
+
+        // Assert
+        success.Should().BeTrue();
+        retrievedValue.Should().Be(value);
+    }
+
+    [Fact]
+    public void TryGetValue_ShouldReturnFalseAndSetNull_WhenResultIsFailed()
+    {
+        // Arrange
+        var error = new Error("Test Error");
+        var result = Result.Fail<string>(error);
+
+        // Act
+        var success = result.TryGetValue(out var retrievedValue);
+
+        // Assert
+        success.Should().BeFalse();
+        retrievedValue.Should().BeNull();
+    }
 }
