@@ -11,8 +11,3 @@ public interface IResult
 
     IError? Error { get; }
 }
-
-public interface IResult<out TValue> : IResult
-{
-    TValue Value { get; }
-}

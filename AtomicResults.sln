@@ -6,8 +6,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{26ADD40B-C78C-42C7-A66C-95206568AA92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtomicResults.Abstractions", "src\AtomicResults.Abstractions\AtomicResults.Abstractions.csproj", "{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
@@ -28,10 +26,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2DB902F5-AAE3-4611-9C23-E3F0F6220016}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2DB902F5-AAE3-4611-9C23-E3F0F6220016}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2DB902F5-AAE3-4611-9C23-E3F0F6220016}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -49,7 +43,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{714D5B2C-DEDD-FFCE-376B-63F6DFED6DE0} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2DB902F5-AAE3-4611-9C23-E3F0F6220016} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{54A2DE0A-2078-4AC6-A674-53C1BB343643} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{3EEC8245-BF67-4B6B-A783-137E843E6F90} = {26ADD40B-C78C-42C7-A66C-95206568AA92}

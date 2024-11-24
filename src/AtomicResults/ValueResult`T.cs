@@ -2,9 +2,13 @@
 using System.Diagnostics.CodeAnalysis;
 
 namespace AtomicResults;
-public class Result : IResult
+public readonly struct ValueResult<TValue> : IResult<TValue>
 {
-    private static readonly Result ResultOk = new();
+    private readonly TValue _value = default!;
+
+    public TValue Value => IsSuccess
+        ? _value
+        : throw new InvalidOperationException($"Result is in failed state. Value is not set.");
 
     public IError? Error { get; }
 
@@ -14,11 +18,24 @@ public class Result : IResult
     [MemberNotNullWhen(true, nameof(Error))]
     public bool IsFailure => Error != default;
 
-    public Result() { }
-    public Result(IError error)
+    public ValueResult(TValue value)
+    {
+        _value = value;
+    }
+
+    public ValueResult(IError error)
     {
         ArgumentNullException.ThrowIfNull(error);
         Error = error;
+    }
+
+    public ValueResult<TValue> FailIfNull(IError error)
+        => IsSuccess && Value == null ? new(error) : this;
+
+    public bool TryGetValue([NotNullWhen(true)] out TValue? value)
+    {
+        value = _value;
+        return IsSuccess;
     }
 
     [MemberNotNullWhen(true, nameof(Error))]
@@ -43,11 +60,8 @@ public class Result : IResult
         return false;
     }
 
-    public static Result Ok() => ResultOk;
-    public static Result Fail(IError error) => new(error);
-
-    public static Result<TValue> Ok<TValue>(TValue value) => new(value);
-    public static Result<TValue> Fail<TValue>(IError error) => new(error);
-
-    public static implicit operator Result(Error error) => new(error);
+    public static implicit operator ValueResult<TValue>(TValue value) => new(value);
+    public static implicit operator ValueResult<TValue>(Error error) => new(error);
+    public static implicit operator ValueResult(ValueResult<TValue> result)
+        => result.IsSuccess ? default : new(result.Error);
 }

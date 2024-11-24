@@ -11,7 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AtomicResults.Abstractions\AtomicResults.Abstractions.csproj" />
+    <ProjectReference Include="..\AtomicResults\AtomicResults.csproj" />
   </ItemGroup>
 
 </Project>
